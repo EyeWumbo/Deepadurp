@@ -294,10 +294,11 @@ public class CPUScheduler {
 	/** Check for new jobs. */
 	void LoadReadyQueue() {
 		Process p;
-		System.out.println("fuck this shit");
+		
 		for (int i = 0; i < jobQueue.size(); i++) {
 			p = (Process) jobQueue.get(i);
-			if (p.getArrivalTime() <= currentTime && schedulingAlgorithm.meetsMemoryConstraints(p) && !schedulingAlgorithm.contains(p)) {
+			if (p.getArrivalTime() <= currentTime && schedulingAlgorithm.meetsMemoryConstraints(p)
+					&& !schedulingAlgorithm.contains(p)) {
 				readyQueue.add(p);				
 				schedulingAlgorithm.addJob(p);
 				procsIn++;
@@ -311,7 +312,7 @@ public class CPUScheduler {
 		Process p;
 		for (int i = 0; i < readyQueue.size(); i++) {
 			p = (Process) readyQueue.get(i);
-			if (p.isFinished() == true) {
+			if (p.isFinished() == true && schedulingAlgorithm.contains(p)) {
 				readyQueue.remove(i);
 				schedulingAlgorithm.removeJob(p);
 				procsOut++;
@@ -324,7 +325,7 @@ public class CPUScheduler {
 		Process p;
 		for (int i = 0; i < jobQueue.size(); i++) {
 			p = (Process) jobQueue.get(i);
-			if (p.isFinished() == true) {
+			if (p.isFinished() && schedulingAlgorithm.contains(p)) {
 				jobQueue.remove(i);
 				schedulingAlgorithm.removeJob(p);
 			}

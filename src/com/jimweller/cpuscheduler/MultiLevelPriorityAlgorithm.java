@@ -39,7 +39,7 @@ public class MultiLevelPriorityAlgorithm extends RoundRobinSchedulingAlgorithm{
 			return algorithms[0].removeJob(p);
 		}
 		else if(p.priority < 7){
-			algorithms[1].removeJob(p);
+			return algorithms[1].removeJob(p);
 		}
 		return algorithms[2].removeJob(p);		
 	}
@@ -47,10 +47,8 @@ public class MultiLevelPriorityAlgorithm extends RoundRobinSchedulingAlgorithm{
 	@Override
 	public Process getNextJob(long currentTime){
 		for(int i = 0; i < 3; i ++){
-			if(algorithms[i].getNextJob(currentTime) != null){
-//				if(toReturn == null){
-//					toReturn = algorithms[i].getNextJob(currentTime);
-//				}			
+			
+			if(algorithms[i].getNextJob(currentTime) != null){			
 				return algorithms[i].getNextJob(currentTime);
 			}
 		}

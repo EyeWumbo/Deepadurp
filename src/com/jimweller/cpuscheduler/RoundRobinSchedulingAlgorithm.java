@@ -37,6 +37,7 @@ public class RoundRobinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
 	when switching to another algorithm in the GUI */
     public void transferJobsTo(SchedulingAlgorithm otherAlg) {
     	for(Process p : processes){
+    		this.removeJob(p);
     		otherAlg.addJob(p);
     	}
     	processes.clear();

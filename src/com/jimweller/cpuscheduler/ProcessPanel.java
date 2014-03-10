@@ -64,7 +64,7 @@ class ProcessPanel extends JPanel{
 	setAlignmentX(Component.LEFT_ALIGNMENT);
 	setLayout(new BorderLayout());
 	
-	priLbl = new JLabel(""+ (int)proc.getPriorityWeight() + "/" + proc.memory);
+	priLbl = new JLabel((int)proc.getPriorityWeight() + "/" + proc.memory);
 	priLbl.setToolTipText("Once a process has arrived this shows its"+
 			      " priority. (0 High and 9 Low)");
 	priLbl.setHorizontalAlignment(SwingConstants.CENTER);

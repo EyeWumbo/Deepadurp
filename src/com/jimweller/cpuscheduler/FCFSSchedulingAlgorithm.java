@@ -18,49 +18,54 @@ public class FCFSSchedulingAlgorithm extends BaseSchedulingAlgorithm {
 
 	LinkedList<Process> processes = new LinkedList<Process>();
 	Process currentProcess;
-	
-    FCFSSchedulingAlgorithm(){
-    	
-    }
 
-    /** Add the new job to the correct queue.*/
-    public void addJob(Process p){
-    	processes.add(p);
-    	if(currentProcess == null){
-    		currentProcess = p;
-    	}
-    	super.addJob(p);
-    }
-    
-    /** Returns true if the job was present and was removed. */
-    public boolean removeJob(Process p){
-    	super.removeJob(p);
-    	return processes.remove(p);
-    }
+	FCFSSchedulingAlgorithm() {
 
-    /** Transfer all the jobs in the queue of a SchedulingAlgorithm to another, such as
-	when switching to another algorithm in the GUI */
-    public void transferJobsTo(SchedulingAlgorithm otherAlg) {
-    	for(Process p : processes){
-    		otherAlg.addJob(p);
-    	}
-    	processes.clear();
-    }
+	}
 
+	/** Add the new job to the correct queue. */
+	public void addJob(Process p) {
+		processes.add(p);
+		if (currentProcess == null) {
+			currentProcess = p;
+		}
+		super.addJob(p);
+	}
 
-    public boolean shouldPreempt(long currentTime){
-    	return true;
-    }
+	/** Returns true if the job was present and was removed. */
+	public boolean removeJob(Process p) {
+		super.removeJob(p);
+		return processes.remove(p);
+	}
 
-    /** Returns the next process that should be run by the CPU, null if none available.*/
-    public Process getNextJob(long currentTime){
-    	if(processes.isEmpty()){
-    		return null;
-    	}
-    	return processes.peek();
-    }
-    
-    public String getName(){
-	return "First-come first-served";
-    }
+	/**
+	 * Transfer all the jobs in the queue of a SchedulingAlgorithm to another,
+	 * such as when switching to another algorithm in the GUI
+	 */
+	public void transferJobsTo(SchedulingAlgorithm otherAlg) {
+		for (Process p : processes) {
+			this.removeJob(p);
+			otherAlg.addJob(p);
+		}
+		processes.clear();
+	}
+
+	public boolean shouldPreempt(long currentTime) {
+		return true;
+	}
+
+	/**
+	 * Returns the next process that should be run by the CPU, null if none
+	 * available.
+	 */
+	public Process getNextJob(long currentTime) {
+		if (processes.isEmpty()) {
+			return null;
+		}
+		return processes.peek();
+	}
+
+	public String getName() {
+		return "First-come first-served";
+	}
 }

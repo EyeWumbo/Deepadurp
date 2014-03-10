@@ -39,8 +39,8 @@ public class SJFSchedulingAlgorithm extends BaseSchedulingAlgorithm implements O
     
     /** Add the new job to the correct queue.*/
     public void addJob(Process p){
-    	processes.add(p);
     	super.addJob(p);
+    	processes.add(p);
     	if(processes.peek().equals(p)){
     		if(currentProcess == null){
     			currentProcess = p;
@@ -58,6 +58,7 @@ public class SJFSchedulingAlgorithm extends BaseSchedulingAlgorithm implements O
 	when switching to another algorithm in the GUI */
     public void transferJobsTo(SchedulingAlgorithm otherAlg) {
     	for(Process p : processes){
+    		this.removeJob(p);
     		otherAlg.addJob(p);
     	}
     	processes.clear();
