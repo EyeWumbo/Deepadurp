@@ -124,7 +124,7 @@ public class Process{
 	
 	active=true;
 
-	if( timeNow == arrival ){
+	if( timeNow >= arrival ){
 	    arrived = true;
 	}
 	    

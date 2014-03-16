@@ -75,6 +75,8 @@ public class CPUScheduler {
 
 	private int minTurn = 0, maxTurn = 0;
 	private double meanTurn = 0.0, sDevTurn = 0.0;
+	
+	private boolean useMemory = true;
 
 	/**
 	 * Default constructor which builds DEF_PROC_COUNT randomly generated
@@ -294,17 +296,28 @@ public class CPUScheduler {
 	/** Check for new jobs. */
 	void LoadReadyQueue() {
 		Process p;
-		
 		for (int i = 0; i < jobQueue.size(); i++) {
 			p = (Process) jobQueue.get(i);
-			if (p.getArrivalTime() <= currentTime && schedulingAlgorithm.meetsMemoryConstraints(p)
-					&& !schedulingAlgorithm.contains(p)) {
-				readyQueue.add(p);				
+			
+			if(p.getArrivalTime() == currentTime && !useMemory){
+				readyQueue.add(p);
 				schedulingAlgorithm.addJob(p);
 				procsIn++;
 			}
+			
+			else if (p.getArrivalTime() <= currentTime) {
+				if(useMemory){
+					if(schedulingAlgorithm.meetsMemoryConstraints(p) && !readyQueue.contains(p)){
+						readyQueue.add(p);
+						schedulingAlgorithm.addJob(p);
+						procsIn++;
+					}
+					else{
+						break;
+					}
+				}
+			}
 		}
-
 	}
 
 	/** Remove finished jobs. */
@@ -754,6 +767,14 @@ public class CPUScheduler {
 	
 	public int getCurrentMemoryUsage(){
 		return schedulingAlgorithm.memUsage();
+	}
+	
+	public boolean isUsingMemory(){
+		return useMemory;
+	}
+	
+	public void setMemory(boolean useMem){
+		useMemory = useMem;
 	}
 
 }// ENDS class CPUScheduler

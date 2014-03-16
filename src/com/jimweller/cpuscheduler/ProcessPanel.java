@@ -21,7 +21,7 @@ class ProcessPanel extends JPanel{
 
     /** The width of the process panel */
     //was 10
-    static final int PPWIDTH  = 40;
+    static final int PPWIDTH  = 10;
 
     /** The height of the process panel */
     static final int PPHEIGHT = 115;
@@ -64,7 +64,7 @@ class ProcessPanel extends JPanel{
 	setAlignmentX(Component.LEFT_ALIGNMENT);
 	setLayout(new BorderLayout());
 	
-	priLbl = new JLabel((int)proc.getPriorityWeight() + "/" + proc.memory);
+	priLbl = new JLabel((int)proc.getPriorityWeight()+ ""); //+ "/" + proc.memory);
 	priLbl.setToolTipText("Once a process has arrived this shows its"+
 			      " priority. (0 High and 9 Low)");
 	priLbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -117,6 +117,23 @@ class ProcessPanel extends JPanel{
 	    (proc.isActive() == true ? Color.red : new Color(0,0,173) ):
 	    (showHidden ? Color.darkGray : Color.white) ;
 
+	    
+	if(proc.isArrived()){
+		if(proc.isActive()){
+			burstColor = Color.red;
+		}
+		else{
+			burstColor = new Color(0, 0, 173);
+		}
+	}
+	else{
+		if(showHidden){
+			burstColor = Color.darkGray;
+		}
+		else{
+			burstColor = Color.white;
+		}
+	}
 
 	priLbl.setForeground( lblColor );
 	//priLbl.setBackground( proc.isActive() ? Color.red : Color.white );

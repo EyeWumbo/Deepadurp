@@ -15,6 +15,7 @@ public class RoundRobinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
     /** the timeslice each process gets */
     private int quantum, index;
     private ArrayList<Process> processes = new ArrayList<Process>();
+   // private LinkedList<Process> processes = new LinkedList<Process>();
     private long previousTime, timeSinceLast;
 
     RoundRobinSchedulingAlgorithm() {
@@ -78,7 +79,7 @@ public class RoundRobinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
     	if(processes.isEmpty()){
     		return null;
     	}
-    	timeSinceLast += currentTime - previousTime;
+    	timeSinceLast += (currentTime - previousTime) % quantum;
     	if(timeSinceLast > quantum){
     		index ++;
     		timeSinceLast -= quantum;

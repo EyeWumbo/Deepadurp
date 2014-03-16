@@ -33,7 +33,7 @@ public class CPUSchedulerFrameForApplet extends JFrame implements ActionListener
     JRadioButtonMenuItem fps1MI,fps10MI,fps20MI,fps30MI,fps40MI,fps50MI,
 	fps60MI,fps70MI,fps80MI,fps90MI,fps100MI;
     JRadioButtonMenuItem  fcfsRB,sjfRB,rrRB,priRB;
-    JCheckBoxMenuItem     preemptCB,priCB,showHiddenCB;
+    JCheckBoxMenuItem     preemptCB,priCB,showHiddenCB,useMemory;
 
 
     JLabel statusBar,algolLbl;
@@ -159,7 +159,7 @@ public class CPUSchedulerFrameForApplet extends JFrame implements ActionListener
 	queuePanel.setLayout(flay);
 	//queuePanel.setMaximumSize(new Dimension(640,130));
 	for( int i = 0; i < v.size() ; i++){
-	    ProcessPanel p = new ProcessPanel( (Process) v.get(i) );
+	    ProcessPanel p = new ProcessPanel( (Process) v.get(i));
 	    queuePanel.add(p,"Left");
 	}
 	queuePanel.revalidate();
@@ -274,6 +274,14 @@ public class CPUSchedulerFrameForApplet extends JFrame implements ActionListener
 	else if( e.getSource() == showHiddenCB){
 	    ProcessPanel.setShowHidden( showHiddenCB.getState() );
 	    repaint();
+	}
+	else if(e.getSource() == useMemory){
+		if(useMemory.isSelected()){
+			cpu.setMemory(true);
+		}
+		else{
+			cpu.setMemory(false);
+		}
 	}
 	else if( e.getSource() == newMI){
 	    //int algo = cpu.getAlgorithm();
@@ -606,6 +614,11 @@ public class CPUSchedulerFrameForApplet extends JFrame implements ActionListener
 	showHiddenCB = new JCheckBoxMenuItem("Show hidden",false);
 	showHiddenCB.addActionListener(this);
 	optionsMenu.add(showHiddenCB);
+	
+	// Options to use memory in simulation
+	useMemory = new JCheckBoxMenuItem("Use Memory", true);
+	useMemory.addActionListener(this);
+	optionsMenu.add(useMemory);
 
 	menuBar.add(optionsMenu);
     }

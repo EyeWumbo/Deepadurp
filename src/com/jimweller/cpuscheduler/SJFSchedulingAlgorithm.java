@@ -41,11 +41,14 @@ public class SJFSchedulingAlgorithm extends BaseSchedulingAlgorithm implements O
     public void addJob(Process p){
     	super.addJob(p);
     	processes.add(p);
-    	if(processes.peek().equals(p)){
-    		if(currentProcess == null){
-    			currentProcess = p;
-    		}
+    	if(currentProcess == null){
+    		currentProcess = processes.peek();
     	}
+//    	if(processes.peek().equals(p)){
+//    		if(currentProcess == null){
+//    			currentProcess = p;
+//    		}
+//    	}
     }
     
     /** Returns true if the job was present and was removed. */

@@ -46,7 +46,7 @@ public class CPUSchedulerFrame extends JFrame implements ActionListener {
     JMenuItem newMI, openMI, resetMI, saveMI,quitMI;
     JRadioButtonMenuItem fps1MI,fps10MI,fps20MI,fps30MI,fps40MI,fps50MI,
 	fps60MI,fps70MI,fps80MI,fps90MI,fps100MI;
-    JCheckBoxMenuItem     preemptCB,priCB,showHiddenCB;
+    JCheckBoxMenuItem     preemptCB,priCB,showHiddenCB, useMemory;
 
 
     JLabel statusBar,algolLbl;
@@ -85,7 +85,7 @@ public class CPUSchedulerFrame extends JFrame implements ActionListener {
 	
 	// setup frame
 	setTitle("CPU Scheduler Simulation");
-	setSize(790,390);
+	setSize(1000,390);
 	setIconImage(Toolkit.getDefaultToolkit().getImage("com/jimweller/cpuscheduler/pics/cpu.jpg"));
 	
 	getAlgorithms(); //must do first before buildMenus()
@@ -128,8 +128,10 @@ public class CPUSchedulerFrame extends JFrame implements ActionListener {
 	bottomRow.add(quantumField);
 	
 	bottomRow.add(new JLabel("Memory Limit"));
-	bottomRow.add(memoryConstraintField);
-
+	if(cpu.isUsingMemory()){
+		bottomRow.add(memoryConstraintField);
+	}
+	
 	masterPanel.add(topRow);
 	masterPanel.add(middleRow);
 	masterPanel.add(bottomRow);
@@ -279,6 +281,17 @@ public class CPUSchedulerFrame extends JFrame implements ActionListener {
 	    ProcessPanel.setShowHidden( showHiddenCB.getState() );
 	    repaint();
 	}
+	else if(e.getSource() == useMemory){
+		cpu.setMemory(useMemory.isSelected());
+		if(!cpu.isUsingMemory()){
+			this.memPanel.setVisible(false);
+			this.memoryConstraintField.setVisible(false);
+		}
+		else{
+			this.memPanel.setVisible(true);
+			this.memoryConstraintField.setVisible(true);
+		}
+	}
 	else if( e.getSource() == newMI){
 	    //int algo = cpu.getAlgorithm();
 	    //cpu = new CPUScheduler();
@@ -420,6 +433,7 @@ public class CPUSchedulerFrame extends JFrame implements ActionListener {
 		    try {
 			RoundRobinSchedulingAlgorithm RR = (RoundRobinSchedulingAlgorithm)newAlg;
 			RR.setQuantum(Integer.parseInt(quantumField.getText()));
+			System.out.println(RR.getQuantum());
 		    }
 		    catch (Exception exc){}
 
@@ -442,7 +456,16 @@ public class CPUSchedulerFrame extends JFrame implements ActionListener {
 		    //SetMemoryConstraint
 		    
 		    try{
-		    	newAlg.setMemoryConstraint(Integer.parseInt(memoryConstraintField.getText()));
+		    	String checkIfLengthExceedsBounds = memoryConstraintField.getText();
+		    	if(checkIfLengthExceedsBounds.length() > 9){
+		    		checkIfLengthExceedsBounds = Integer.toString(Integer.MAX_VALUE);
+		    		memoryConstraintField.setText(checkIfLengthExceedsBounds);
+		    	}
+		    	int thing = Integer.parseInt(checkIfLengthExceedsBounds);
+		    	if(thing == 0){
+		    		thing = Integer.MAX_VALUE;
+		    	}
+		    	newAlg.setMemoryConstraint(thing);
 		    }
 		    
 		    catch(Exception ex){
@@ -686,6 +709,10 @@ public class CPUSchedulerFrame extends JFrame implements ActionListener {
 	showHiddenCB.addActionListener(this);
 	optionsMenu.add(showHiddenCB);
 
+	useMemory = new JCheckBoxMenuItem("Use Memory", true);
+	useMemory.addActionListener(this);
+	optionsMenu.add(useMemory);
+	
 	menuBar.add(optionsMenu);
     }
 

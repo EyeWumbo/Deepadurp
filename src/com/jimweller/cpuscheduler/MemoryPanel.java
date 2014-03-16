@@ -21,13 +21,11 @@ public class MemoryPanel extends JPanel{
         setBorder( tBorder);
         setLayout(new GridLayout(0,2));
 
-        memLabel =  new JLabel("Memory");
         cpuUsedLabel  = new JLabel("Usage");
         cpuCurrent =  new JLabel(""+0);
         cpuTotalLabel = new JLabel("Max");
         cpuCurrentMax = new JLabel("" + 0);
 
-        add(memLabel);
         add(cpuUsedLabel);
         add(cpuCurrent);
         add(cpuTotalLabel);
