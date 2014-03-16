@@ -80,14 +80,6 @@ public class SJFSchedulingAlgorithm extends BaseSchedulingAlgorithm implements O
     	}
     	return currentProcess;
     }
-
-    public int memUsage(){
-    	int usage = 0;
-    	for(Process p : processes){
-    		usage += p.memory;
-    	}
-    	return usage;
-    }
     
     public String getName(){
 	return "Shortest job first";

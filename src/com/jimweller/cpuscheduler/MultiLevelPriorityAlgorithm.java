@@ -1,10 +1,12 @@
 package com.jimweller.cpuscheduler;
 
-public class MultiLevelPriorityAlgorithm extends RoundRobinSchedulingAlgorithm{
+public class MultiLevelPriorityAlgorithm extends RoundRobinSchedulingAlgorithm implements OptionallyPreemptiveSchedulingAlgorithm{
 	
 	private BaseSchedulingAlgorithm[] algorithms = new BaseSchedulingAlgorithm[3];
 	private BaseSchedulingAlgorithm current;
+	private Process currentJob;
 	private long lastTime;
+	private boolean preemptive;
 	
 	public MultiLevelPriorityAlgorithm(){		
 		algorithms[0] = new RoundRobinSchedulingAlgorithm();
@@ -46,13 +48,21 @@ public class MultiLevelPriorityAlgorithm extends RoundRobinSchedulingAlgorithm{
 	
 	@Override
 	public Process getNextJob(long currentTime){
-		for(int i = 0; i < 3; i ++){
-			
-			if(algorithms[i].getNextJob(currentTime) != null){			
-				return algorithms[i].getNextJob(currentTime);
+		if(currentJob != null && currentJob.isFinished()){
+			currentJob = null;
+		}
+		if(!isPreemptive()){
+			if(currentJob != null){
+				return currentJob;
 			}
 		}
-		return null;
+		for(int i = 0; i < 3; i ++){			
+			if(algorithms[i].getNextJob(currentTime) != null){			
+				currentJob = algorithms[i].getNextJob(currentTime);
+				return currentJob;
+			}
+		}
+		return currentJob;
 	}
 
 	@Override
@@ -67,6 +77,18 @@ public class MultiLevelPriorityAlgorithm extends RoundRobinSchedulingAlgorithm{
 	public String getName() {
 		// TODO Auto-generated method stub
 		return "Multi-Level Priority";
+	}
+
+	@Override
+	public boolean isPreemptive() {
+		// TODO Auto-generated method stub
+		return preemptive;
+	}
+
+	@Override
+	public void setPreemptive(boolean v) {
+		// TODO Auto-generated method stub
+		preemptive = v;
 	}
 	
 }

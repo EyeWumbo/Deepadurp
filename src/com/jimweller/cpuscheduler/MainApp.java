@@ -1,5 +1,6 @@
 package com.jimweller.cpuscheduler;
 
+
 //import com.jimweller.cpuscheduler.CPUSchedulerFrame;
 //import com.jimweller.cpuscheduler.CPUScheduler;
 
@@ -10,7 +11,7 @@ public class MainApp   {
 
     
     public static void main(String args[]){
-
+    	
     CPUScheduler cpu = new CPUScheduler();
     //cpu.Simulate();
     //cpu.printCSV();

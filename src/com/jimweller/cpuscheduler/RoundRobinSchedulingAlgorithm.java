@@ -43,14 +43,6 @@ public class RoundRobinSchedulingAlgorithm extends BaseSchedulingAlgorithm {
     	}
     	processes.clear();
     }
-
-    public int memUsage(){
-    	int usage = 0;
-    	for(Process p : processes){
-    		usage += p.memory;
-    	}
-    	return usage;
-    }
     
     /**
      * Get the value of quantum.

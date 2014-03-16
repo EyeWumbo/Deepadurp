@@ -39,13 +39,6 @@ public class RandomSchedulingAlgorithm extends BaseSchedulingAlgorithm {
 	return activeJob;
     }
 
-    public int memUsage(){
-    	int usage = 0;
-    	for(Process p : jobs){
-    		usage += p.memory;
-    	}
-    	return usage;
-    }
     
     /** Transfer all the jobs in the queue of a SchedulingAlgorithm to another, such as
 	when switching to another algorithm in the GUI */
