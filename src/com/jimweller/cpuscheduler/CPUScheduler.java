@@ -345,7 +345,7 @@ public class CPUScheduler {
 			p = (Process) jobQueue.get(i);
 			if (p.isFinished()) {
 				jobQueue.remove(i);
-				schedulingAlgorithm.removeJob(p);
+				//schedulingAlgorithm.removeJob(p);
 			}
 		}
 	}
