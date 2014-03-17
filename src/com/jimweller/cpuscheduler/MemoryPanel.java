@@ -15,7 +15,11 @@ public class MemoryPanel extends JPanel{
 
     JLabel memLabel,cpuTotalLabel,cpuUsedLabel,cpuCurrent, cpuCurrentMax;
 
-
+    public void setMem(int m)
+    {
+    		cpuCurrentMax.setText(""+m);
+    }
+    
     MemoryPanel(String title){
         TitledBorder tBorder =  BorderFactory.createTitledBorder(title);
         setBorder( tBorder);

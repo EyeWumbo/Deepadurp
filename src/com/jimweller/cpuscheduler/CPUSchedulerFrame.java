@@ -253,6 +253,13 @@ public class CPUSchedulerFrame extends JFrame implements ActionListener {
 	    }
 	    else{
 		frozen = false;
+		int mem = Integer.parseInt(memoryConstraintField.getText());
+		if(mem == 0) mem = Integer.MAX_VALUE;
+		memPanel.setMem(mem);
+		for(SchedulingAlgorithm alg : algs)
+		{
+			alg.setMemoryConstraint(mem);
+		}
 		startAnimation();
 		startCB.setSelected(true);
 	    }
@@ -469,7 +476,6 @@ public class CPUSchedulerFrame extends JFrame implements ActionListener {
 		    }
 		    
 		    catch(Exception ex){
-		    	System.out.println("shit's fucked at SetMemoryConstraint");
 		    }
 		    
 		    cpu.setAlgorithm(newAlg);
