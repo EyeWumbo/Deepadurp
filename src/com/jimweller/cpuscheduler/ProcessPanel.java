@@ -21,7 +21,7 @@ class ProcessPanel extends JPanel{
 
     /** The width of the process panel */
     //was 10
-    static final int PPWIDTH  = 40;
+    static final int PPWIDTH  = 10;
 
     /** The height of the process panel */
     static final int PPHEIGHT = 115;
@@ -64,7 +64,7 @@ class ProcessPanel extends JPanel{
 	setAlignmentX(Component.LEFT_ALIGNMENT);
 	setLayout(new BorderLayout());
 	
-	priLbl = new JLabel((int)proc.getPriorityWeight() + "/" + proc.arrival);
+	priLbl = new JLabel((int)proc.getPriorityWeight() + "");// + "/" + proc.arrival);
 	priLbl.setToolTipText("Once a process has arrived this shows its"+
 			      " priority. (0 High and 9 Low)");
 	priLbl.setHorizontalAlignment(SwingConstants.CENTER);
