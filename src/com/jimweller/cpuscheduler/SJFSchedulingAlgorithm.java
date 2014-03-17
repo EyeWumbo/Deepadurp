@@ -66,7 +66,7 @@ public class SJFSchedulingAlgorithm extends BaseSchedulingAlgorithm implements O
 	public Process getNextJob(long currentTime) {
 		Process p1 = null;
 		Process p2 = null;
-		if(!isJobFinished() && !isPreemptive())
+		if(activeJob != null && !activeJob.isFinished() && !isPreemptive())
 			return activeJob;
 		p1 = processes.get(0);
 		for(int i = 0; i < processes.size(); ++i)
