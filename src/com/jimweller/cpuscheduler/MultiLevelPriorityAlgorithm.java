@@ -51,11 +51,11 @@ public class MultiLevelPriorityAlgorithm extends RoundRobinSchedulingAlgorithm i
 		if(currentJob != null && currentJob.isFinished()){
 			currentJob = null;
 		}
-		if(!isPreemptive()){
-			if(currentJob != null){
-				return currentJob;
-			}
-		}
+//		if(!isPreemptive()){
+//			if(currentJob != null){
+//				return currentJob;
+//			}
+//		}
 		for(int i = 0; i < 3; i ++){			
 			if(algorithms[i].getNextJob(currentTime) != null){			
 				currentJob = algorithms[i].getNextJob(currentTime);

@@ -118,25 +118,25 @@ class ProcessPanel extends JPanel{
 	    (showHidden ? Color.darkGray : Color.white) ;
 
 	    
-	if(proc.isArrived()){
-		if(proc.isActive()){
-			burstColor = Color.red;
-		}
-		else{
-			burstColor = new Color(0, 0, 173);
-		}
-	}
-	else{
-		if(showHidden){
-			burstColor = Color.darkGray;
-		}
-		else{
-			burstColor = Color.white;
-		}
-	}
+//	if(proc.isArrived()){
+//		if(proc.isActive()){
+//			burstColor = Color.red;
+//		}
+//		else{
+//			burstColor = new Color(0, 0, 173);
+//		}
+//	}
+//	else{
+//		if(showHidden){
+//			burstColor = Color.darkGray;
+//		}
+//		else{
+//			burstColor = Color.white;
+//		}
+//	}
 
 	priLbl.setForeground( lblColor );
-	//priLbl.setBackground( proc.isActive() ? Color.red : Color.white );
+	priLbl.setBackground( proc.isActive() ? Color.red : Color.white );
 
 
 	if( proc.isArrived() ){

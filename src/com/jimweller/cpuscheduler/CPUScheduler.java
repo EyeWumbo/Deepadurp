@@ -299,22 +299,24 @@ public class CPUScheduler {
 		for (int i = 0; i < jobQueue.size(); i++) {
 			p = (Process) jobQueue.get(i);
 			
-			if(p.getArrivalTime() == currentTime && !useMemory){
-				readyQueue.add(p);
-				schedulingAlgorithm.addJob(p);
-				procsIn++;
-			}
+//			if(p.getArrivalTime() == currentTime && !useMemory){
+//				readyQueue.add(p);
+//				schedulingAlgorithm.addJob(p);
+//				p.setArrived(true);
+//				procsIn++;
+//			}
 			
-			else if (p.getArrivalTime() <= currentTime) {
-				if(useMemory){
+			if (p.getArrivalTime() <= currentTime) {
+				//if(useMemory){
 					if(schedulingAlgorithm.meetsMemoryConstraints(p) && !readyQueue.contains(p)){
 						readyQueue.add(p);
+						p.setArrived(true);
 						schedulingAlgorithm.addJob(p);
 						procsIn++;
-					}
-					else{
-						break;
-					}
+//					}
+//					else{
+//						break;
+//					}
 				}
 			}
 		}
@@ -325,7 +327,7 @@ public class CPUScheduler {
 		Process p;
 		for (int i = 0; i < readyQueue.size(); i++) {
 			p = (Process) readyQueue.get(i);
-			if (p.isFinished() == true && schedulingAlgorithm.contains(p)) {
+			if (p.isFinished() == true) {
 				readyQueue.remove(i);
 				schedulingAlgorithm.removeJob(p);
 				procsOut++;
@@ -338,9 +340,9 @@ public class CPUScheduler {
 		Process p;
 		for (int i = 0; i < jobQueue.size(); i++) {
 			p = (Process) jobQueue.get(i);
-			if (p.isFinished() && schedulingAlgorithm.contains(p)) {
+			if (p.isFinished()) {
 				jobQueue.remove(i);
-				schedulingAlgorithm.removeJob(p);
+				//schedulingAlgorithm.removeJob(p);
 			}
 		}
 	}

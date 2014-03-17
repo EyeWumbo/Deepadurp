@@ -1,6 +1,6 @@
 package com.jimweller.cpuscheduler;
 
-import java.io.*;
+import java.io.PrintWriter;
 
 /** 
  *   An aggregate data type to represent a process to schedule. It will
@@ -89,7 +89,12 @@ public class Process{
     }
 
 
-    /** Articulate constructor. No random generation is done on the
+    public void setArrived(boolean arrived) {
+		this.arrived = arrived;
+	}
+
+
+	/** Articulate constructor. No random generation is done on the
 	programmers behalf. It is assumed that all values will be
 	within the above parameters.  This method is useful for
 	building a queue of process where the data comes from a file
