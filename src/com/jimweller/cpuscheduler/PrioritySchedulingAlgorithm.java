@@ -84,6 +84,7 @@ public class PrioritySchedulingAlgorithm extends BaseSchedulingAlgorithm impleme
 				p1 = p2;
 			}
 		}
+		//
 		this.activeJob = p1;
 		return activeJob;
 //		if (preemptive) {
