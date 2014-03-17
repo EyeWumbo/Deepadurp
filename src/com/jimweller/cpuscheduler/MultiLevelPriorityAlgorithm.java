@@ -46,6 +46,7 @@ public class MultiLevelPriorityAlgorithm extends RoundRobinSchedulingAlgorithm i
 	}
 
 	@Override
+<<<<<<< HEAD
 	public Process getNextJob(long currentTime) {
 
 		boolean empty = true;
@@ -57,6 +58,23 @@ public class MultiLevelPriorityAlgorithm extends RoundRobinSchedulingAlgorithm i
 					empty = false;
 					break;
 				}
+=======
+	public Process getNextJob(long currentTime){
+		if(currentJob != null && !currentJob.isFinished() && !preemptive){
+			if(algorithms[2].contains(currentJob)){
+				return currentJob;
+			}
+		}
+//		if(!isPreemptive()){
+//			if(currentJob != null){
+//				return currentJob;
+//			}
+//		}
+		for(int i = 0; i < 3; i ++){			
+			if(algorithms[i].getNextJob(currentTime) != null){			
+				currentJob = algorithms[i].getNextJob(currentTime);
+				return currentJob;
+>>>>>>> refs/remotes/origin/master
 			}
 		}
 		else
