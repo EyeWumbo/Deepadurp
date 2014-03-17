@@ -69,14 +69,14 @@ public class SJFSchedulingAlgorithm extends BaseSchedulingAlgorithm implements O
 
     /** Returns the next process that should be run by the CPU, null if none available.*/
     public Process getNextJob(long currentTime){
-    	if(currentProcess == null){
-    		return currentProcess;
-    	}
-    	if(!preemptive && currentProcess.isFinished()){
+    	if(preemptive){
     		currentProcess = processes.peek();
     	}
-    	else if(preemptive){
+    	else if(!preemptive && currentProcess.isFinished()){
     		currentProcess = processes.peek();
+    	}
+    	if(currentProcess.isFinished()){
+    		currentProcess = null;
     	}
     	return currentProcess;
     }

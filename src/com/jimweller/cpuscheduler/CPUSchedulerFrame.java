@@ -259,6 +259,13 @@ public class CPUSchedulerFrame extends JFrame implements ActionListener {
 		for(SchedulingAlgorithm alg : algs)
 		{
 			alg.setMemoryConstraint(mem);
+			try{
+				RoundRobinSchedulingAlgorithm r = (RoundRobinSchedulingAlgorithm)alg;
+				r.setQuantum(Integer.parseInt(quantumField.getText()));
+			}
+			catch(Exception error){
+				
+			}
 		}
 		startAnimation();
 		startCB.setSelected(true);
