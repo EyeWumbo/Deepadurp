@@ -75,7 +75,7 @@ public class Process{
     /** A way to see if a process is scheduled to run this cycle */
     boolean active = false;
     
-    int memory;
+    long memory;
     /** Default constructor. Randomly generate a process and fills in fields
 	using the bounds specified above. */
     Process(){
@@ -113,7 +113,7 @@ public class Process{
 	priority = p;
     }
     
-    Process(long b, long d, long p, int m){
+    Process(long b, long d, long p, long m){
     	this(b, d, p);
     	this.memory = m;
     }
